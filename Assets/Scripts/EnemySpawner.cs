@@ -4,25 +4,23 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject objectPrefab; // Objeto que se instanciará
-    public float tiempoEntreInstancias = 2f; // Tiempo entre cada instancia
-    public Transform[] puntosDeSpawn; // Array de puntos de spawn donde aparecerán los objetos
+    public GameObject enemyPrefab; 
+    public float spawnRate = 2f; 
+    public float spawnRadius = 10f; 
 
-    private void Start()
+    void Start()
     {
-        // Llamar al método SpawnObject repetidamente cada 'tiempoEntreInstancias' segundos
-        InvokeRepeating("SpawnObject", 0f, tiempoEntreInstancias);
+        
+        InvokeRepeating("SpawnEnemy", 0f, spawnRate);
     }
 
-    void SpawnObject()
+    void SpawnEnemy()
     {
-        // Elegir un punto de spawn aleatorio del array
-        Transform puntoDeSpawn = puntosDeSpawn[Random.Range(0, puntosDeSpawn.Length)];
+        
+        Vector3 randomPosition = Random.insideUnitCircle * spawnRadius;
+        Vector3 spawnPosition = new Vector3(randomPosition.x, randomPosition.y, 0f) + transform.position;
 
-        // Calcular una posición aleatoria dentro del rango del punto de spawn
-        Vector3 posicionAleatoria = puntoDeSpawn.position + new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), 0);
-
-        // Instanciar el objeto en la posición aleatoria
-        Instantiate(objectPrefab, posicionAleatoria, Quaternion.identity);
+        
+        Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
     }
 }

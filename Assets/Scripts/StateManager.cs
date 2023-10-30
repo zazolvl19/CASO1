@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class StateManager : Singleton<StateManager>
 {
-    string _kills;
+    int _kills = 0;
 
-    public string getKills()
+    public int getKills()
     {
         return _kills;
     }
 
-    public void setKills(string newKills)
+    public void setKills(int newKills)
     {
         _kills = newKills;
     }

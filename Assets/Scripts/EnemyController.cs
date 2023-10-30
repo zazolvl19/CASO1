@@ -1,18 +1,27 @@
+using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    private AIDestinationSetter destinationSetter;
+
+    void Start()
+    {
+        destinationSetter = GetComponent<AIDestinationSetter>();
+
+        GameObject targetDestination = GameObject.FindGameObjectWithTag("Player");
+        destinationSetter.target = targetDestination.transform;
+    }
+
     void OnCollisionEnter2D(Collision2D other)
     {
-        int enemyCount = 0;
         if (other.gameObject.tag == "Bullet")
         {
-            enemyCount++;
-            StateManager.Instance.setKills(enemyCount.ToString());
             Destroy(other.gameObject);
             Destroy(gameObject);
+            StateManager.Instance.setKills(StateManager.Instance.getKills() + 1) ;
         }
     }
 }

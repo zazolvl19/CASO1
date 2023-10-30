@@ -10,11 +10,13 @@ public class GameOverController : MonoBehaviour
 
     public void Retry()
     {
+
+        StateManager.Instance.setKills(0);
         LevelManager.Instance.FirstScene();
     }
 
     void Start()
     {
-        killsText.text = StateManager.Instance.getKills();
+        killsText.text = StateManager.Instance.getKills().ToString();
     }
 }
